@@ -7,7 +7,19 @@ from ..db.dbConfiguration import getDB
 from ..models.modelLocationCategoryReviewed import LocationCategoryReviewed
 from ..schemas.schemalocationCategoryReviews import LocationCategoryReviewedBase, LocationCategoryReviewedOut, LocationCategoryReviewedBaseDate
 router = APIRouter()
+"""
+    Crea una nueva combinación de ubicación-categoría revisada en la base de datos.
 
+    Args:
+        combination (LocationCategoryReviewedBase): Datos de la combinación a crear.
+        db (Session, optional): Sesión de base de datos SQLAlchemy. Defaults to Depends(getDB).
+
+    Returns:
+        LocationCategoryReviewedOut: La combinación creada.
+    
+    Raises:
+        HTTPException: Si ocurre un error en la base de datos.
+"""
 @router.post("/combinations", response_model=LocationCategoryReviewedOut)
 def create_combinations(combination: LocationCategoryReviewedBase, db: Session = Depends(getDB)):
     try:
@@ -20,7 +32,20 @@ def create_combinations(combination: LocationCategoryReviewedBase, db: Session =
         error_message = str(e)
         raise HTTPException(
             status_code=500, detail="Error en la base de datos: " + error_message)
+"""
+    Actualiza una combinación de ubicación-categoría revisada existente en la base de datos.
 
+    Args:
+        combinations_id (int): ID de la combinación a actualizar.
+        combination (LocationCategoryReviewedBaseDate): Datos actualizados de la combinación.
+        db (Session, optional): Sesión de base de datos SQLAlchemy. Defaults to Depends(getDB).
+
+    Returns:
+        LocationCategoryReviewedOut: La combinación actualizada.
+    
+    Raises:
+        HTTPException: Si la combinación no existe o si ocurre un error en la base de datos.
+"""
 @router.put("/combinations/{combinations_id}", response_model=LocationCategoryReviewedOut)
 def update_combinations(combinations_id: int, combination: LocationCategoryReviewedBaseDate, db: Session = Depends(getDB)):
     try:
@@ -38,7 +63,19 @@ def update_combinations(combinations_id: int, combination: LocationCategoryRevie
         raise HTTPException(
             status_code=500, detail="Error en la base de datos: " + error_message)
 
+"""
+    Elimina una combinación de ubicación-categoría revisada por su ID en la base de datos.
 
+    Args:
+        combinations_id (int): ID de la combinación a eliminar.
+        db (Session, optional): Sesión de base de datos SQLAlchemy. Defaults to Depends(getDB).
+
+    Returns:
+        LocationCategoryReviewedOut: La combinación eliminada.
+    
+    Raises:
+        HTTPException: Si la combinación no existe o si ocurre un error en la base de datos.
+"""
 @router.delete("/combinations/{combinations_id}", response_model=LocationCategoryReviewedOut)
 def delete_combinations(combinations_id: int, db: Session = Depends(getDB)):
     try:

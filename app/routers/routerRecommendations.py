@@ -8,6 +8,19 @@ from ..models.modelCategories import Categories
 from ..models.modelLocations import Locations
 from ..schemas.schemalocationCategoryReviews import LocationCategoryReviewedOut
 router = APIRouter()
+
+"""
+    Obtiene recomendaciones de combinaciones de ubicación-categoría que no han sido revisadas en los últimos 30 días.
+
+    Args:
+        db (Session, optional): Sesión de base de datos SQLAlchemy. Defaults to Depends(getDB).
+
+    Returns:
+        list[LocationCategoryReviewedOut]: Lista de recomendaciones de combinaciones de ubicación-categoría.
+    
+    Raises:
+        HTTPException: Si ocurre un error en la base de datos.
+"""
 @router.get("/recommendations", response_model=list[LocationCategoryReviewedOut])
 def get_recommendations(db: Session = Depends(getDB)):
     thirty_days_ago = datetime.now() - timedelta(days=30)
