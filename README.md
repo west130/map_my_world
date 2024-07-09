@@ -6,8 +6,10 @@
 
 
 ### Prerequisitos 
-
-Clona el repositorio desde GitHub:
+###### Version de python: python3.10
+##### Configura tu ambiente venv:
+python3 -m venv venv
+##### Clona el repositorio desde GitHub:
 
 ```
 git clone https://github.com/west130/map_my_world
